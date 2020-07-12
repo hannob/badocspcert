@@ -8,6 +8,12 @@ abused to sign OCSP responses. The technical details are explained here:
 
 * https://www.mail-archive.com/dev-security-policy@lists.mozilla.org/msg13493.html
 
+Additionally there was an incident with Digicert intermediates, which will also
+cause revocations. While this was an unrelated incident, I added a check for these
+hashes as well. For background see:
+
+* https://knowledge.digicert.com/alerts/DigiCert-ICA-Replacement
+
 This script checks if web hosts send an intermediate certificate that is among the
 affected certificates. If your web page is affected this means you should ask your
 CA to replace the certificate.
@@ -23,7 +29,7 @@ edge cases. Web hosts can be configured to not send intermediates, in most cases
 will still work because browsers cache intermediates and some implement so-called
 AIA fetching. Such hosts wouldn't be detected.
 
-Also theiretically there could be complex certificate chains that might contain one of
+Also theoretically there could be complex certificate chains that might contain one of
 the affected certificates, but that can still be validated through another certificate
 path.
 
