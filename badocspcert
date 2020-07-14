@@ -8,7 +8,7 @@ fi
 
 TMP="$(mktemp -d)"
 
-timeout 10 openssl s_client -connect "$1:443" -showcerts < /dev/null &> "$TMP/_ossl.txt"
+timeout 10 openssl s_client -connect "$1:443" -servername "$1" -showcerts < /dev/null &> "$TMP/_ossl.txt"
 
 csplit -s -f "$TMP/_pem" "$TMP/_ossl.txt" '/-----BEGIN CERTIFICATE-----/' '{*}'
 
